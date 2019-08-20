@@ -25,15 +25,6 @@ def exit_app():
     app.closeAllWindows()
 
 
-class Worker(QRunnable):
-    def __init__(self, summoner_input):
-        QRunnable.__init__(self)
-        self.summoner_input = summoner_input
-
-    def run(self):
-        QMetaObject.invokeMethod(self.summoner_input, "retrieve", Qt.QueuedConnection)
-
-
 class SummonerInput(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -42,7 +33,7 @@ class SummonerInput(QMainWindow):
         self.retrieve_button = QPushButton('Create Teams', self)
         self.retrieve_button.resize(200, 50)
         self.retrieve_button.move(200, 350)
-        self.retrieve_button.clicked.connect(self.setup)
+        self.retrieve_button.clicked.connect(self.retrieve())
         self.summoner1 = QLineEdit(self)
         self.summoner2 = QLineEdit(self)
         self.summoner3 = QLineEdit(self)
@@ -55,12 +46,8 @@ class SummonerInput(QMainWindow):
         self.summoner10 = QLineEdit(self)
         self.username_input_list = [self.summoner1, self.summoner2, self.summoner3, self.summoner4, self.summoner5,
                                     self.summoner6, self.summoner7, self.summoner8, self.summoner9, self.summoner10]
-        self.loading = QLabel(self)
-        self.gif = QMovie("ajax-loader.gif")
-        self.loading.setMovie(self.gif)
         setup_line_widgets(self.username_input_list)
 
-    @pyqtSlot()
     def retrieve(self):
         usernames = []
         for i in self.username_input_list:
@@ -68,12 +55,6 @@ class SummonerInput(QMainWindow):
         summoner_list = RetriveSummoners.main(usernames)
         teams = CreateTeams.main(summoner_list)
         exit_app()
-
-    def setup(self):
-        self.loading.show()
-        self.gif.start()
-        worker = Worker(self)
-        QThreadPool.globalInstance().start(worker)
 
 
 if __name__ == '__main__':
