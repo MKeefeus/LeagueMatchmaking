@@ -32,7 +32,7 @@ class SummonerInput(QMainWindow):
         self.retrieve_button = QPushButton('Create Teams', self)
         self.retrieve_button.resize(200, 50)
         self.retrieve_button.move(200, 350)
-        self.retrieve_button.clicked.connect(self.retrieve())
+        self.retrieve_button.clicked.connect(self.retrieve)
         self.summoner1 = QLineEdit(self)
         self.summoner2 = QLineEdit(self)
         self.summoner3 = QLineEdit(self)
