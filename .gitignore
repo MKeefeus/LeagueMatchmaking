@@ -9,7 +9,7 @@
 .idea/**/shelf
 
 # Contains enviorment variables
-.idea\runConfigurations
+.idea/**/LeagueMatchmaking.xml
 
 # Generated files
 .idea/**/contentModel.xml
