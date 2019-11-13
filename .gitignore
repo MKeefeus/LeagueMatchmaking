@@ -8,6 +8,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+# Contains enviorment variables
+./idea/runConfigurations
+
 # Generated files
 .idea/**/contentModel.xml
 
